@@ -25,8 +25,14 @@ export default function App({navigation, route}) {
           name='Home'
           component={HomeScreen}
           options={({route}) => ({
-            // title: route.params?.post ? route.params?.post : 'Home Screen',
             headerTitle: () => <LogoTitle />,
+            // headerRight: () => (
+            //   <Button
+            //     title='Info'
+            //     onPress={() => alert('This is a button!')}
+            //     color='#fff'
+            //   />
+            // ),
           })}
         />
         <Stack.Screen
@@ -51,12 +57,21 @@ export function HomeScreen({route, navigation}) {
     }
   }, [route.params?.post]);
 
+  const [count, setCount] = React.useState(0);
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <Button title='Update count' onPress={() => setCount((c) => c + 1)} />
+      ),
+    });
+  }, [navigation]);
   return (
     <View style={styles.container}>
       <Text style={styles.text}>This is Home Screen.</Text>
       <Text style={styles.text}>
         You just sent the message "{route.params?.post}"
       </Text>
+      <Text style={styles.text}>Count: {count}</Text>
       <Button
         title='Go to Details Screen'
         onPress={() =>
