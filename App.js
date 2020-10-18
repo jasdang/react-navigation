@@ -3,10 +3,12 @@ import {StatusBar} from 'expo-status-bar';
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {StyleSheet, Text, View, Button, Image} from 'react-native';
 import {TextInput} from 'react-native-gesture-handler';
 
 const Stack = createStackNavigator();
+const Tab = createBottomTabNavigator();
 
 export default function App({navigation, route}) {
   return (
@@ -23,16 +25,16 @@ export default function App({navigation, route}) {
         }}>
         <Stack.Screen
           name='Home'
-          component={HomeScreen}
+          component={HomeTab}
           options={({route}) => ({
             headerTitle: () => <LogoTitle />,
-            // headerRight: () => (
-            //   <Button
-            //     title='Info'
-            //     onPress={() => alert('This is a button!')}
-            //     color='#fff'
-            //   />
-            // ),
+            headerRight: () => (
+              <Button
+                title='Info'
+                onPress={() => alert('This is a button!')}
+                color='#fff'
+              />
+            ),
           })}
         />
         <Stack.Screen
@@ -50,12 +52,21 @@ export default function App({navigation, route}) {
   );
 }
 
+function HomeTab() {
+  return (
+    <Tab.Navigator>
+      <Tab.Screen name='HomeTab' component={HomeScreen} />
+      <Tab.Screen name='DetailsScreen' component={DetailsScreen} />
+    </Tab.Navigator>
+  );
+}
+
 export function HomeScreen({route, navigation}) {
-  React.useEffect(() => {
-    if (route.params?.post) {
-      console.log('Send post request to server');
-    }
-  }, [route.params?.post]);
+  // React.useEffect(() => {
+  //   if (route.params?.post) {
+  //     console.log('Send post request to server');
+  //   }
+  // }, [route.params?.post]);
 
   const [count, setCount] = React.useState(0);
   React.useLayoutEffect(() => {
@@ -74,42 +85,20 @@ export function HomeScreen({route, navigation}) {
       <Text style={styles.text}>Count: {count}</Text>
       <Button
         title='Go to Details Screen'
-        onPress={() =>
-          navigation.navigate('Details', {prevPage: 'Home Screen'})
-        }
+        onPress={() => navigation.navigate('Details')}
       />
       <Button
         title='Create Post'
         onPress={() => navigation.navigate('CreatePost')}
-      />
-      <Button
-        title='Change header'
-        onPress={() => navigation.setOptions({title: 'Updated!'})}
       />
     </View>
   );
 }
 
 export function DetailsScreen({navigation, route}) {
-  const {prevPage} = route.params;
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>
-        You just came from {prevPage}. This is Details Screen.
-      </Text>
-      <Button
-        title='Go down to Another Details Screen'
-        onPress={() => navigation.push('Details')}
-      />
-      <Button
-        title='Go down to Home Screen'
-        onPress={() => navigation.push('Home')}
-      />
-      <Button
-        title='Jump back to Home Screen'
-        onPress={() => navigation.popToTop('Details')}
-      />
-      <Button title='Go back' onPress={() => navigation.goBack()} />
+      <Text style={styles.text}>This is Details Screen.</Text>
     </View>
   );
 }
