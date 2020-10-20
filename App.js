@@ -5,17 +5,19 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createDrawerNavigator} from '@react-navigation/drawer';
+import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import {StyleSheet, Text, View, Button, Image} from 'react-native';
 import {TextInput} from 'react-native-gesture-handler';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 const Drawer = createDrawerNavigator();
+const Tab2 = createMaterialTopTabNavigator();
 
 export default function App({navigation, route}) {
   return (
     <NavigationContainer>
-      <Drawer.Navigator
+      <Tab2.Navigator
         screenOptions={{
           headerStyle: {
             backgroundColor: '#f4511e',
@@ -25,7 +27,7 @@ export default function App({navigation, route}) {
             fontWeight: 'bold',
           },
         }}>
-        <Drawer.Screen
+        <Tab2.Screen
           name='Home'
           component={HomeTab}
           options={({route}) => ({
@@ -39,17 +41,17 @@ export default function App({navigation, route}) {
             ),
           })}
         />
-        <Drawer.Screen
+        <Tab2.Screen
           name='Details'
           component={DetailsScreen}
           options={{title: 'Details Screen'}}
         />
-        <Drawer.Screen
+        <Tab2.Screen
           name='CreatePost'
           component={CreatePost}
           options={{title: 'Create Post Screen'}}
         />
-      </Drawer.Navigator>
+      </Tab2.Navigator>
     </NavigationContainer>
   );
 }
@@ -72,12 +74,6 @@ function HomeTab() {
 }
 
 export function HomeScreen({route, navigation}) {
-  // React.useEffect(() => {
-  //   if (route.params?.post) {
-  //     console.log('Send post request to server');
-  //   }
-  // }, [route.params?.post]);
-
   const [count, setCount] = React.useState(0);
   React.useLayoutEffect(() => {
     navigation.setOptions({
@@ -93,6 +89,8 @@ export function HomeScreen({route, navigation}) {
         You just sent the message "{route.params?.post}"
       </Text>
       <Text style={styles.text}>Count: {count}</Text>
+      <Button title='Open Drawer' onPress={() => navigation.openDrawer()} />
+      <Button title='Close Drawer' onPress={() => navigation.closeDrawer()} />
       <Button
         title='Go to Details Screen'
         onPress={() => navigation.navigate('Details')}
