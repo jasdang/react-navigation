@@ -4,16 +4,18 @@ import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {createDrawerNavigator} from '@react-navigation/drawer';
 import {StyleSheet, Text, View, Button, Image} from 'react-native';
 import {TextInput} from 'react-native-gesture-handler';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
+const Drawer = createDrawerNavigator();
 
 export default function App({navigation, route}) {
   return (
     <NavigationContainer>
-      <Stack.Navigator
+      <Drawer.Navigator
         screenOptions={{
           headerStyle: {
             backgroundColor: '#f4511e',
@@ -23,7 +25,7 @@ export default function App({navigation, route}) {
             fontWeight: 'bold',
           },
         }}>
-        <Stack.Screen
+        <Drawer.Screen
           name='Home'
           component={HomeTab}
           options={({route}) => ({
@@ -37,18 +39,26 @@ export default function App({navigation, route}) {
             ),
           })}
         />
-        <Stack.Screen
+        <Drawer.Screen
           name='Details'
           component={DetailsScreen}
           options={{title: 'Details Screen'}}
         />
-        <Stack.Screen
+        <Drawer.Screen
           name='CreatePost'
           component={CreatePost}
           options={{title: 'Create Post Screen'}}
         />
-      </Stack.Navigator>
+      </Drawer.Navigator>
     </NavigationContainer>
+  );
+}
+
+function DrawerScreen() {
+  return (
+    <Drawer.Navigator>
+      <Drawer.Screen name='HomeScreen' component={HomeScreen} />
+    </Drawer.Navigator>
   );
 }
 
