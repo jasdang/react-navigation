@@ -2,16 +2,21 @@ import React from 'react';
 import {View, Text, StyleSheet, Button} from 'react-native';
 
 export default function App() {
+  const [flexDirection, setFlexDirection] = React.useState();
   return (
     <View style={styles.container}>
       <Text>flexDirection:</Text>
       <Button
         title='ROW'
         onPress={() => {
-          styles.container.flexDirection = 'row';
+          setFlexDirection('row');
         }}></Button>
-      <Button title='COLUMN'></Button>
-      <View style={styles.squareContainer}>
+      <Button
+        title='COLUMN'
+        onPress={() => {
+          setFlexDirection('column');
+        }}></Button>
+      <View style={{flexDirection: flexDirection}}>
         <View style={styles.square}></View>
         <View style={styles.square}></View>
         <View style={styles.square}></View>
@@ -23,7 +28,6 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
   },
