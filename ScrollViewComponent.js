@@ -5,10 +5,10 @@ export default function ScrollViewComponent() {
   return (
     <ScrollView>
       <View style={styles.fullWidth} />
-      <View style={styles.row}>
+      <ScrollView horizontal style={styles.row}>
         <View style={styles.square} />
         <View style={styles.square} />
-      </View>
+      </ScrollView>
       <View style={styles.fullWidth} />
       <View style={styles.square} />
       <View style={styles.fullWidth} />
