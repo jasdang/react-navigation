@@ -48,8 +48,8 @@ export default function App() {
           flexDirection: flexDirection,
           justifyContent: justifyContent,
           alignItems: alignItems,
-          width: 500,
-          height: 500,
+          width: 300,
+          height: 300,
           backgroundColor: 'blue',
         }}>
         <View style={styles.square} />
@@ -66,10 +66,11 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    padding: 10,
   },
   row: {
     flexDirection: 'row',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
     alignItems: 'center',
     flexWrap: 'wrap',
   },
@@ -81,7 +82,8 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
     backgroundColor: 'black',
-    margin: 10,
+    borderColor: 'white',
+    borderWidth: 1,
   },
   button: {
     backgroundColor: 'grey',
